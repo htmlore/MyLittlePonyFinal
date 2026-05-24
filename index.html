@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identificador de Generaciones MLP</title>
+  <meta name="description" content="Identifica la generación de tus figuras de My Little Pony usando Inteligencia Artificial. Soporta imágenes y cámara en tiempo real.">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- TensorFlow.js and Teachable Machine libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+        <!-- G4 Logo -->
+        <img class="logo-svg" src="https://cdn.worldvectorlogo.com/logos/my-little-pony-g4-logo.svg" alt="My Little Pony G4 Logo">
+        <h1 class="logo-subtitle">IDENTIFICADOR DE GENERACIONES</h1>
+        <div class="rainbow-bar"></div>
+      </div>
+    </header>
+
+    <!-- Classifier Card -->
+    <main class="main-card" id="classifier-widget">
+      
+      <!-- Input Mode Selectors -->
+      <nav class="tabs" role="tablist">
+        <button class="tab-btn active" id="tab-upload" role="tab" aria-selected="true" aria-controls="panel-upload">
+          <span class="icon">🖼️</span> Subir Imagen
+        </button>
+        <button class="tab-btn" id="tab-webcam" role="tab" aria-selected="false" aria-controls="panel-webcam">
+          <span class="icon">📷</span> Cámara en Vivo
+        </button>
+      </nav>
+
+      <!-- Panel 1: Image Upload -->
+      <section class="tab-content active" id="panel-upload" role="tabpanel">
+        <div class="upload-area" id="drop-zone">
+          <span class="upload-icon">✨</span>
+          <p class="upload-text">Arrastra y suelta tu pony aquí</p>
+          <p class="upload-subtext">o haz clic para explorar tu dispositivo (PNG, JPG, JPEG)</p>
+          <input type="file" id="file-input" accept="image/*">
+        </div>
+      </section>
+
+      <!-- Panel 2: Live Webcam -->
+      <section class="tab-content" id="panel-webcam" role="tabpanel">
+        <div class="controls-row">
+          <button class="btn btn-primary" id="btn-start-webcam">
+            <span>🎬</span> Iniciar Cámara
+          </button>
+          <button class="btn btn-danger" id="btn-stop-webcam" style="display: none;">
+            <span>⏹️</span> Apagar Cámara
+          </button>
+        </div>
+      </section>
+
+      <!-- Media Preview Frame (Hidden until image is uploaded or webcam starts) -->
+      <div class="preview-container" id="preview-container" style="display: none;">
+        <div class="media-wrapper">
+          <!-- Magic Loading State -->
+          <div class="media-overlay" id="loading-overlay" style="display: none;">
+            <div class="magic-loader"></div>
+            <div class="overlay-text" id="overlay-text">Cargando modelo mágico...</div>
+          </div>
+          
+          <!-- Image preview -->
+          <img id="preview-img" alt="Pony para analizar">
+          
+          <!-- Webcam Canvas container -->
+          <div id="webcam-container"></div>
+        </div>
+        
+        <!-- Action Buttons for Image Upload Mode -->
+        <div class="controls-row" id="upload-controls" style="display: none;">
+          <button class="btn btn-primary" id="btn-analyze">
+            <span>✨</span> Analizar Pony
+          </button>
+          <button class="btn btn-secondary" id="btn-clear">
+            <span>🗑️</span> Quitar Imagen
+          </button>
+        </div>
+      </div>
+
+      <!-- Result Display Area -->
+      <section class="result-section" id="result-section" aria-live="polite">
+        <div class="result-header">
+          <span class="result-badge">Generación Detectada</span>
+          <div class="confidence-container">
+            <span class="confidence-label">Confianza:</span>
+            <div class="confidence-bar-bg">
+              <div class="confidence-bar-fill" id="confidence-bar"></div>
+            </div>
+            <span class="confidence-value" id="confidence-value">0%</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Results Card -->
+        <div class="result-card" id="result-card">
+          <h2 class="result-title" id="result-title">
+            Cargando resultado...
+          </h2>
+          <p class="result-desc" id="result-desc">
+            Espere por favor mientras la magia ocurre.
+          </p>
+          <div class="result-actions">
+            <a href="#" target="_blank" class="result-btn" id="result-link">
+              <span>🌐</span> Ver Guía de Colección
+            </a>
+            <button class="btn btn-secondary" id="btn-unlock" style="display: none;">
+              <span>🔄</span> Volver a Escanear
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      Identificador de Generaciones MLP — BigData
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

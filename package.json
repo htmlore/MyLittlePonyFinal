@@ -1,0 +1,16 @@
+{
+  "name": "mlp-generation-identifier",
+  "version": "1.0.0",
+  "description": "Identificador de Generaciones de My Little Pony usando Teachable Machine",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 3000 -o"
+  },
+  "keywords": [
+    "mlp",
+    "teachable-machine",
+    "tensorflow"
+  ],
+  "author": "BigData",
+  "license": "MIT"
+}
